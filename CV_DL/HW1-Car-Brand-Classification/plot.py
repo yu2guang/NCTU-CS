@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import os
 
 
@@ -25,6 +26,7 @@ def plt_train_acc(src_path, epoch_i, target_path='./train_acc_plot/'):
     plt.title('Training Accuracy', fontsize=18)
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy (%)')
+    plt.yticks(np.arange(int(round(y[0])), int(round(y[-1])), 10))
 
     fig.savefig('{}{}_train_acc.jpg'.format(target_path, src_path.split('/')[-2]))
 
