@@ -102,7 +102,9 @@ ResNet 解決深層網路的問題:
 ![](https://i.imgur.com/MjgnAd7.png)
 
 epoch: 89, training accuracy: 0.996, testing accuracy: 0.58919
+
 ![](https://i.imgur.com/trI31jr.jpg)
+
 一開始使用 ResNet 50 Layer 做為 model 訓練，效果比 baseline 還差。其可能原因如下：
 - testind data 忘記做 normalize 跟 resize
 - 由於網路較多層且 image resize 較大，礙於記憶體空間，batch size 只能 32，訓練不夠全面
@@ -111,7 +113,9 @@ epoch: 89, training accuracy: 0.996, testing accuracy: 0.58919
 ![](https://i.imgur.com/N9uBZqM.png)
 
 epoch: 55, training accuracy: 0.998, testing accuracy: 0.88780
+
 ![](https://i.imgur.com/kusXzbk.jpg)
+
 後來使用 ResNet 18 Layer 做為 model 訓練，有超過 baseline 了！而且 train 二三十個 epoch 就能達到 training accuracy 九十幾，模型收斂較快。在這裡做了以下改變：
 - testind data 做 normalize 跟 resize
 - batch size 較大，改為 256
@@ -122,20 +126,26 @@ epoch: 55, training accuracy: 0.998, testing accuracy: 0.88780
 ![](https://i.imgur.com/ywqIABy.png)
 
 epoch: 646, training accuracy: 0.999, testing accuracy: 0.91140
+
 ![](https://i.imgur.com/mCvCb7v.jpg)
+
 這裡只多做了 `transforms.RandomPerspective` 就提升了不少 testing accuracy，真不錯！
 
 ![](https://i.imgur.com/oTJpQ7T.png)
 
 epoch: 268, training accuracy: 0.999, testing accuracy: 0.91000
+
 ![](https://i.imgur.com/zvIxhwQ.jpg)
+
 這裡多做了 `transforms.RandomRotation(random.randrange(0, 60))` 跟將 weight decay 調大一點變 5e-4。
 可能旋轉跟透視變換有些相近，所以對 testing accuracy 看起來沒什麼提升，因此在 code 的部分就先拿掉了。
 
 ![](https://i.imgur.com/q0Lx9IJ.png)
 
 epoch: 867, training accuracy: 0.999, testing accuracy: 0.91180
+
 ![](https://i.imgur.com/tPXsKAA.jpg)
+
 這裡多做了 `transforms.ColorJitter()` 跟將 weight decay 調回去變 1e-4。
 雖然對 testing accuracy 看起來沒什麼提升，但卻是目前最好的結果。猜測提升原因為亮度、對比度和飽和度變換增加了一些之前沒看過的資料。
 
