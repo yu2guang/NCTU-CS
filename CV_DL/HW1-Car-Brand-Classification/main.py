@@ -23,7 +23,7 @@ def main():
     # --- data process --- #
     # info
     src_path = './data/'
-    target_path = './saved/ResNet18_wd4_cj_2/'
+    target_path = './saved/ResNet18/'
     model_path = target_path + 'pkls/'
     pred_path = target_path + 'preds/'
 
