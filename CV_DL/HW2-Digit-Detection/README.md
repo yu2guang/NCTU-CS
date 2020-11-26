@@ -77,8 +77,8 @@ names: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 To train on the custom dataset run:
 
 ```bash=
-$ python train.py --model_def config/yolov3-custom.cfg \
-                  --train_config config/train_params.cfg
+$ python train.py --img 320 --batch 32 --epochs 20 \
+    --data digit.yaml --weights yolov5m.pt
 ```
 
 The weights and training results will be automatically saved at `saved/` and the structure is the following:
