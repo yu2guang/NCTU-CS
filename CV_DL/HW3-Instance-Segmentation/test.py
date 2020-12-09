@@ -101,7 +101,7 @@ def test(cfg_path, pretrain_imageNet=True):
                             plot_img(path, detect_i, test_info['img_size'], f'{test_info["img_path"]}plot_{path.split("/")[-1]}', test_info['class_names'])
 
     # dump json file
-    json_path = test_info['saved_path'] + test_info['pkl_path'].split('/')[3].split('.')[0] + f'_{int(test_info["thres"]*100)}.json'
+    json_path = test_info['saved_path'] + test_info['pkl_path'].split('/')[3].split('.')[0] + f'_{test_info["mode"]}_{int(test_info["thres"]*100)}.json'
     print(json_path)
     with open(json_path, 'w') as outfile:
         json.dump(submit_seq, outfile)
