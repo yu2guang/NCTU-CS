@@ -28,9 +28,9 @@ The data directory is structured as:
 ```
 data
   +- train_images
-    | training images
+  | | training images
   +- test_images
-    | testing images
+  | | testing images
   | train.json
   | test.json
 ```
@@ -40,17 +40,28 @@ data
 To train models, run following commands:
 
 ```bash=
-$ python train.py --cfg train.cfg
+$ mkdir ./saved/mRCNN/
+$ python -u train.py --cfg train.cfg | tee ./saved/mRCNN/process.txt
 ```
 
-The weights will be automatically saved at `saved/mRCNN/pkls/` and the structure is the following:
+The weights and training process (i.e. loss) will be automatically saved at `saved/mRCNN/` and the structure is the following:
 
 ```
 saved
   +- mRCNN
   |  +- pkls
   |  | weights
+  |  process.txt
 ```
+
+The training loss could be ploted by:
+
+```bash=
+$ python plot_train_loss.py --loss_path saved/mRCNN_0_3/process.txt
+                            --img_path saved/mRCNN_0_3/train_loss.jpg
+```
+
+The image will be automatically saved at `img_path`.
 
 ## Test
 
@@ -60,7 +71,7 @@ To test models, run following commands:
 $ python test.py --cfg test.cfg
 ```
 
-The detected images & `maskRCNN_{$epoch}.json` file will be automatically saved at `saved/mRCNN/results/` (same saved dir as `Train`) and the structure is the following:
+The detected images & `maskRCNN_{$epoch}_{$mode}_{$thres}.json` file will be automatically saved at `saved/mRCNN/results/` (same saved dir as `Train`) and the structure is the following:
 
 ```
 saved
@@ -68,10 +79,12 @@ saved
   |  +- pkls
   |  | weights
   |  +- results
-  |  |  +- imgs
+  |  |  +- test_imgs
   |  |  | detected images
   |  | json file       
 ```
+
+You can also test training data by changing the `mode` in `test.cfg`.
 
 ## Evaluate
 
@@ -79,7 +92,7 @@ To evaluate models, run following commands:
 
 ```bash=
 $ python evaluate.py --truth dataset/train.json
-                     --submit saved/mRCNN_0/results/maskRCNN_100_train.json
+                     --submit saved/mRCNN_0_3/results/maskRCNN_134_train_0.json
 ```
 
 And it will take some time to show the APs.
