@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import os, argparse
+import argparse
 
 
 def plt_process_loss(src_path, target_path):
